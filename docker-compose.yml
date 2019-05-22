@@ -1,0 +1,18 @@
+version: '2'
+services:
+  portainer:
+    image: portainer/portainer:latest
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    - ./data:/data
+    restart: always
+    ports:
+#       - 9000:9000
+  haproxy:
+    image: haproxy:alpine
+    ports:
+      - 11443:443/tcp
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+      - ./certificate.pem:/usr/local/etc/haproxy/certificate.pem
+    restart: always
